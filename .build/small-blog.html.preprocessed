@@ -1,0 +1,73 @@
+# 0 "<stdin>"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "/nix/store/6jk1d1m5j9d8gjyq79zqlgqqs9j3gcwn-glibc-2.38-44-dev/include/stdc-predef.h" 1 3 4
+# 0 "<command-line>" 2
+# 1 "<stdin>"
+# 1 "include/meta.html" 1
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>joke.enterprises</title>
+
+    <link rel="stylesheet" href="site.css">
+</head>
+# 2 "<stdin>" 2
+
+<body> <div id=background> <div class="spread center" id="main">
+# 1 "include/header.html" 1
+<h1><a href="index.html">joke.enterprises</a></h1>
+<p>work in progress</p>
+# 5 "<stdin>" 2
+
+    <br>
+    <p>the small blog: random thoughts, musings, logs and things that don't need a long-form post. wouldn't be surprised if nobody reads these tbh, but they're fun to write!</p>
+    <br>
+
+<section>
+    <h2>01/04/2024 - april fools</h2>
+    <p>feel like april fools kinda sucked balls this year, people changing discords to a different thing is a bit of an old bit at this point</p>
+    <p>the SDL discord becoming a giant layoff was pretty funny though. solid bit.</p>
+</section>
+
+<section>
+    <h2>31/03/2024 - titanium's resource system</h2>
+    <p>for my game development <a href="https:/\/github.com/BobTheBob9/libtitanium">library</a>/<a href="https:/\/github.com/BobTheBob9/titanium">engine</a> titanium (primarily the library in this case), i'm currently working on a resource loader, i just wanted to quickly braindump the whole design philosophy here</p>
+    <p>the resource loader was one of the first things i wanted to do with titanium, it seemed weird to me that in many game engines, you'd have a filesystem class that just like, gives you raw access to a file's bytes or text as the main operation, why? most of the time, if i want to load a file i don't want to bother with parsing it, i just want to read the parsed data</p>
+    <p>that's the idea here: our filesystem should be parsing, essentially if i want to load a file, i should provide a function pointer that handles parsing/deserializing the data, then if we try to load said file multiple times, we make sure that every file is reference counted and read-only, so that we only actually have to re-parse a file once in a game's lifetime, ideally</p>
+    <p>additionally, we should be able to do stuff like load files directly into device-native formats (e.g. loading a texture directly into a texture buffer on the GPU), and letting us apply all our refcounting stuff there as well, so if we need to load the same texture multiple times we don't even have to care about whether we're being inefficient with our gpu memory</p>
+    <p>finally (and this is the bit i've not solved yet), it needs to be really easy to have everything hot-reloadable. this is super important to me because it's really helpful to be able to hot reload stuff in development - really helps iteration times - and secondly because supporting mods is super important to me: and mods really benefit from being able to hot-reload to some extent! at least to the extent that like, i should be able to load a map, quit, install a mod that modifies it, then reload the map and have it all apply</p>
+    <br>
+    <p>anyway, many thoughts, ideally i'll have a prototype of this ready by tuesday which is my last day off work, bleh</p>
+</section>
+
+<section>
+    <h2>30/03/2024 - first post!</h2>
+    <p>finally done some work on this little site, had it for ages but never bothered to really put anything on here, haate working with web tech which certainly hasn't make me super motivated to work on it, but i've got a few days off and wanted to be a lil productive, and thought it'd be nice to work on it</p>
+    <p>anyway, i found the site <a href="https:/\/insect.christmas">insect.christmas</a> owned by youtuber/streamer <a href="https:/\/www.twitch.tv/aztrosist">Astrozist</a> who's on <a href="https:/\/www.youtube.com/@SleepDeprived">a podcast i like</a>, read through her site, found out she's very very cool and got inspired to finally finish my site because of how cool her one is</p>
+    <br>
+    <p>absolutely hated working with the Web Tech, felt like i was repeating lots of code etc, really just wished i could do #include in the middle of my html</p>
+    <p>sooo, i did that! i ran the site through gcc's preprocessor, really works surprisingly well tbh, i'm sure professional webdevs would hate this, but to me this really makes it fun to work on this site</p>
+    <p>i found gcc's preprocessor to be a little finnicky, it seems to work more consistently if you give it files via pipes rather than the builtin arguments, it also generates a bunch of metadata in the file it emits that you have to remove, this is basically what i came up with to make it work
+<div class="codeblock"><pre><code>
+    function build_page {
+        gcc -E - < $1 > .build/$1.preprocessed
+        sed '/^#/d' < .build/$1.preprocessed > /web/$1
+    }
+
+    build_page index.html
+</code></pre></div></p>
+    <br>
+    <p>this basically just preprocesses a given file, removes all lines from it that begin with a '#' char, and then copies the processed file to the /web/ directory (which is where i have nginx configured to serve from)</p>
+    <p>additional caveats, you have to remember it's treating what you're writing as C code, so any '//' comments or '#'s get treated as they would be in C (in this case they're wrapped in ''s so the preprocessor is ignoring them because it thinks they're in strings, lol), which can limit what you can do (web links are a pain!), but it seems pretty possible to work around the shortcomings at least for me</p>
+    <br>
+    <p>i'll probably toss the code for this site on a public git repo or something at some point, or maybe just a zip file you can download off this site tbh, not sure</p>
+    <p>not sure what else i'll put on here, it'd be nice to have a guestbook of some sort, but i worry that people might be dickheads if given the chance to write random messages on here, would also need some sort of scripting for that, but oh well, for now at least though it's just random info, thoughts and musings on static HTML</p>
+    <p>might redo the styling a bit as well, some more muted colours would be nice, maybe some pictures too</p>
+    <br>
+    <p>made japanese curry as well today! super nice, first time i've ever had it (or so i thought? i think i've had chicken katsu served with it before tbh), just chucked a bunch of beef in a pot, got it browned, then added potatoes and onions and carrots and tomato paste and simmered it in water for ages before adding the curry stock cube things, makes a fuckload of curry and took basically no effort, super tasty too, wasn't a massive fan of the carrots though (not sure if i undercooked them, cut them too big, or if i just don't really like carrots very much)</p>
+</section>
+<p><br></p> </div> </div> </body>
