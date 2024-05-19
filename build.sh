@@ -8,6 +8,7 @@ function file {
 }
 
 file favicon.png
+file badge88_31.png
 file site.css
 
 function build_page {

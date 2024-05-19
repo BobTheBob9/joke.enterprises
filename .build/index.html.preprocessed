@@ -1,7 +1,7 @@
 # 0 "<stdin>"
 # 0 "<built-in>"
 # 0 "<command-line>"
-# 1 "/nix/store/6jk1d1m5j9d8gjyq79zqlgqqs9j3gcwn-glibc-2.38-44-dev/include/stdc-predef.h" 1 3 4
+# 1 "/nix/store/s3pvsv4as7mc8i2nwnk2hnsyi2qdj4bq-glibc-2.39-31-dev/include/stdc-predef.h" 1 3 4
 # 0 "<command-line>" 2
 # 1 "<stdin>"
 # 1 "include/meta.html" 1
@@ -22,16 +22,15 @@
 <h1><a href="index.html">joke.enterprises</a></h1>
 <p>work in progress</p>
 # 5 "<stdin>" 2
-
-    <br><p></p>
-
+    <br>
     <br>
     <p><a href="whoami.html">>whoami</a></p>
 
     <p><a href="small-blog.html">>small blog</a></p>
 
     <p><a href="system.html">>systems</a></p>
-
-    <h2>webring</h2>
-    <p>site i copied (with permission): <a href="https://birb.cc">birb.cc</a></p>
+    <br>
+    <p>say hi! <a href="mailto:bobthebob@joke.enterprises">bobthebob@joke.enterprises</a></p>
+    <br>
+    <p><a href="https://webring.birb.cc/prev">&lt;=</a> <a href="https://webring.birb.cc/">webring</a> <a href="https://webring.birb.cc/next">=&gt;</a></p>
 <p><br></p> </div> </div> </body>
