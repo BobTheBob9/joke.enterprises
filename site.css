@@ -1,9 +1,14 @@
 body {
-    background-color: black;
-    color: white;
+    background-color: #282828;
+    color: #ebdbb2;
     margin: 0;
     padding: 0;
     font-family: "Menlo", "Consolas", "Lucida Console", monospace;
+    background-image: url('background-corner.svg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position-x: left;
+    background-position-y: top;
 }
 
 html {
@@ -12,8 +17,7 @@ html {
 
 a {
     text-decoration: underline;
-    color: white;
-    transition: color 0.5s;
+    color: #ebdbb2;
 }
 
 img {
@@ -50,7 +54,6 @@ img {
     min-width: 500px;
     max-width: 1000px;
     height: fit-content;
-    border: 3px solid;
 }
 
 .flex {
@@ -105,8 +108,8 @@ p {
 }
 
 .codeblock {
-    background-color: #262626;
-    color: #CCCCCC;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #3c3836;
+    color: white;
+    padding: 1px;
+    border-radius: 10px;
 }
