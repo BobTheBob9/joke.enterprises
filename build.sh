@@ -35,7 +35,7 @@ find ./blog/ -type f | sort -k 1.7,1.11 -k 1.4,1.6 -k 1.1,1.2 -r | while read -r
     page=$(basename "$file")
 
     # macro expected to be defined in file
-    title="BLOG_TITLE( ${page:0:2}, ${page:3:2}, ${page:6:4}, $(echo ${page:11} | cut -d. -f1), /blog/$page )\n"
+    title="BLOG_TITLE( ${page:0:2}, ${page:3:2}, ${page:6:4}, $(echo ${page:11} | cut -d. -f1), \"/blog/$page\" )\n"
     smallblogincludes+=$title
     smallblogincludes+="#include \"blog/$page\"\n"
 
