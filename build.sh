@@ -24,14 +24,18 @@ function build_page {
 
 build_page index.html
 build_page whoami.html
-build_page small-blog.html
 build_page system.html
+build_page small-blog.html
 
+# blog
+mkdir /web/blog
 smallblogincludes=""
 for page in `ls ./blog/ | sort -k 1.7,1.11 -k 1.4,1.6 -k 1.1,1.2 -r`; do
     # macro expected to be defined in file
     smallblogincludes+="BLOG_TITLE( ${page:0:2}, ${page:3:2}, ${page:6:4}, $(echo ${page:11} | cut -d. -f1) )\n"
     smallblogincludes+="#include \"blog/$page\"\n";
+
+    sed "s|BLOG_POST|#include \"blog/$page\"|" < blog-single-post-template.html | gcc -w -E - | sed '/^#/d' > /web/blog/$page 
 done
 
 # todo: not an actual define currently because can't #include from macro
