@@ -1,9 +1,20 @@
+@font-face {
+	font-family: Hack;
+	src: url( 'hack-regular-subset.woff2' );
+}
+
+@font-face {
+	font-family: Hack;
+	src: url( 'hack-bold-subset.woff2' );
+	font-weight: bold;
+}
+
 body {
     background-color: #282828;
     color: #ebdbb2;
     margin: 0;
     padding: 0;
-    font-family: "Menlo", "Consolas", "Lucida Console", monospace;
+    font-family: Hack, monospace;
     background-image: url('background-corner.svg');
     background-repeat: no-repeat;
     background-attachment: fixed;
