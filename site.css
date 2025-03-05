@@ -31,6 +31,10 @@ a {
     color: #ebdbb2;
 }
 
+ol {
+    list-style-type: "- ";
+}
+
 img {
     object-fit: contain;
     border: 3px solid;

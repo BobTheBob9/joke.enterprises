@@ -2,6 +2,10 @@
 #include "include/blog-meta.html"
 
 // build script generates a page based on this for every blog post so they can be permalinked to
+<head>
+	<meta property="og:title" content=POST_TITLE/>
+	<meta property="og:description" content=POST_SUMMARY/>
+</head>
 
 PAGE_BEGIN
     #include "include/header.html"

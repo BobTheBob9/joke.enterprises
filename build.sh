@@ -30,17 +30,26 @@ build_page small-blog.html
 
 # blog
 mkdir /web/blog
-smallblogincludes=""
-find ./blog/ -type f | sort -k 1.7,1.11 -k 1.4,1.6 -k 1.1,1.2 -r | while read -r file; do
+blogincludes=""
+find ./blog/ -type f | sort -k 1.12,1.16 -k 1.9,1.11 -k 1.6,1.8 -r | while read -r file; do
     page=$(basename "$file")
 
-    # macro expected to be defined in file
-    title="BLOG_TITLE( ${page:0:2}, ${page:3:2}, ${page:6:4}, $(echo ${page:11} | cut -d. -f1), \"/blog/$page\" )\n"
-    smallblogincludes+=$title
-    smallblogincludes+="#include \"blog/$page\"\n"
+    day=${page:0:2}
+    month=${page:3:2}
+    year=${page:6:4}
+    postName=$(echo ${page:11} | cut -d. -f1)
+    summary="$(sed -e 's/<[^>]*>//g' "$file" | head -1)... (cont.)"
 
-    sed "s|BLOG_POST|$title\n#include \"blog/$page\"|" < blog-single-post-template.html | gcc -w -E - | sed '/^#/d' > /web/blog/$page
+    # macro expected to be defined in file
+    title="BLOG_TITLE( $day, $month, $year, $postName, \"/blog/$page\" )\n"
+    
+    if [[ $page != DEV* ]]; then
+    	blogincludes+=$title
+    	blogincludes+="#include \"blog/$page\"\n"
+    fi	
+
+    sed "s|BLOG_POST|$title\n#include \"blog/$page\"|" < blog-single-post-template.html | gcc -w -E "-DPOST_TITLE=\"$day/$month/$year - $postName\"" "-DPOST_SUMMARY=\"$summary\"" - | sed '/^#/d' > /web/blog/$page
 done
 
 # todo: not an actual define currently because can't #include from macro
-sed "s|BLOG_PAGES|$smallblogincludes|" < blog.html | gcc -w -E - | sed '/^#/d' > /web/blog.html
+sed "s|BLOG_PAGES|$blogincludes|" < blog.html | gcc -w -E - | sed '/^#/d' > /web/blog.html
